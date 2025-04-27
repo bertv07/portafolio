@@ -1,0 +1,1248 @@
+/* =================================================== */
+/* IMPORTACIÓN DE FUENTES EXTERNAS                    */
+/* =================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap");
+
+/* =================================================== */
+/* DEFINICIÓN DE FUENTES PERSONALIZADAS                */
+/* =================================================== */
+@font-face {
+  font-family: "Damione";
+  src: url("../fonts/DaMiOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Garet";
+  src: url("../fonts/Garet-Book.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Galak";
+  src: url("../fonts/GalakProDemo.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* =================================================== */
+/* RESET GENERAL Y ESTILOS BASE                        */
+/* =================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+}
+
+/* =================================================== */
+/* CONTENEDOR PRINCIPAL DE LA APLICACIÓN               */
+/* =================================================== */
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background: #000;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* =================================================== */
+/* ANIMACIÓN DE CONTENIDO PRINCIPAL                    */
+/* =================================================== */
+.main-content {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  position: relative;
+  z-index: 2;
+}
+
+.main-content.visible {
+  opacity: 1;
+}
+
+/* =================================================== */
+/* ESTILOS DE TÍTULOS                                  */
+/* =================================================== */
+h1 {
+  font-family: "Damione", sans-serif;
+  font-weight: 600;
+  color: #ebe1e1;
+  letter-spacing: 5px;
+  font-size: 5rem;
+}
+
+/* =================================================== */
+/* EFECTO DE ESTRELLAS ANIMADAS                        */
+/* =================================================== */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 1;
+}
+
+.stars-container span {
+  border-radius: 50%;
+  pointer-events: none;
+  position: absolute;
+  background: white;
+  animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+  0% {
+    transform: scale(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateX(-4000%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* =================================================== */
+/* COMPONENTE DE CARGA (LOADER)                        */
+/* =================================================== */
+.loader-content {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 1.2s ease-in;
+}
+
+.loader-content.exiting {
+  transform: translateX(-100%) translateY(30%) scale(0.6);
+  opacity: 0.8;
+}
+
+.loading-details {
+  text-align: center;
+}
+
+.loading-details p {
+  font-family: "Titillium Web", sans-serif;
+  margin: 10px 0;
+  font-size: 1.5rem;
+  color: #ebe1e1;
+  animation: fadeInOut 0.5s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* =================================================== */
+/* ESTILOS DE TEXTO ESPECÍFICOS                        */
+/* =================================================== */
+.hola,
+.soy,
+.bien {
+  font-family: "Galak";
+  letter-spacing: 2px;
+  font-size: 2rem;
+}
+
+.hola {
+  color: #ffa500;
+}
+
+.span-mi {
+  color: #ebe1e1;
+  font-size: 1.7rem;
+}
+
+.soy h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  animation: cursor 1s step-start infinite;
+  width: 21.5ch;
+  min-width: 21.5ch;
+  height: 3rem;
+}
+
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.span-por {
+  color: #ffa500;
+}
+
+/* =================================================== */
+/* SECCIÓN DEL SOL                                     */
+/* =================================================== */
+.sun {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sun canvas {
+  margin-left: -60rem !important;
+  transform: scale(1.2);
+}
+
+/* =================================================== */
+/* SECCIÓN DE PRESENTACIÓN                             */
+/* =================================================== */
+.present {
+  z-index: 100;
+  color: #ebe1e1;
+  width: 40%;
+  max-width: 500px;
+  pointer-events: none;
+}
+
+/* =================================================== */
+/* SECCIÓN SOBRE MÍ                                    */
+/* =================================================== */
+.sobre-mi {
+  margin-left: -30%;
+  color: #ebe1e1;
+  pointer-events: auto;
+  width: 50rem;
+  top: 0;
+}
+
+.sobremi {
+  margin-top: 10rem;
+  width: 50rem;
+  margin-right: -20rem;
+}
+
+/* =================================================== */
+/* SECCIÓN DE SERVICIOS                                */
+/* =================================================== */
+.servicios {
+  color: #ebe1e1;
+  max-width: 700px;
+  margin-left: -20rem;
+  margin-top: 10rem;
+}
+
+.ser{
+  font-family: "Damione", sans-serif;
+  color: #ffa500;
+  margin-bottom: 15px;
+  font-size: 4rem;
+  text-align: center;
+  margin-left: 6rem;
+}
+
+/* =================================================== */
+/* ESTILOS COMUNES PARA SOBRE MÍ Y SERVICIOS           */
+/* =================================================== */
+.sobremi,
+.servicios-content {
+  color: #ebe1e1;
+  font-family: "Titillium Web", sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.sobremi h2,
+.servicios-content h2 {
+  font-family: "Damione", sans-serif;
+  color: #ffa500;
+  margin-bottom: 15px;
+  font-size: 4rem;
+}
+
+.sobremi p,
+.servicios-content p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  font-size: 1.2rem;
+}
+
+/* =================================================== */
+/* ESTILOS DE PLANETAS                                 */
+/* =================================================== */
+.mercury {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.venus {
+  display: flex;
+  justify-content: center;
+}
+
+.venus canvas {
+  margin-left: -60rem;
+}
+
+
+.earth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.earth canvas {
+  margin-left: -40rem;
+}
+
+.mars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.mars canvas {
+  margin-left: -50rem;
+}
+
+
+.jupiter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jupiter canvas {
+  margin-left: -30rem;
+}
+
+/* =================================================== */
+/* SECCIÓN DE LOGOS                                    */
+/* =================================================== */
+.logos {
+  width: 23rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 30px;
+  pointer-events: auto !important;
+}
+
+.logos img.logo {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #ffa500;
+  border-radius: 14px;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: pulseEffect 2s infinite;
+}
+
+@keyframes pulseEffect {
+  0% {
+    transform: scale(1);
+    border-color: #ffa500;
+    box-shadow: none;
+  }
+  50% {
+    transform: scale(1);
+    border-color: #ff8c00;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    border-color: #ffa500;
+    box-shadow: none;
+  }
+}
+
+/* =================================================== */
+/* ESTILOS DE TARJETAS                                 */
+/* =================================================== */
+.cards {
+  gap: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  width: 17rem;
+  height: 22rem;
+  border: #ffa500 3px solid;
+  border-radius: 32px;
+  cursor: pointer;
+  color: #ebe1e1;
+  animation: glowingEffect 4s infinite;
+}
+
+@keyframes glowingEffect {
+  0% {
+    border-color: #ffa500;
+    box-shadow: none;
+  }
+  50% {
+    border-color: #ff8c00;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 1);
+  }
+  100% {
+    border-color: #ffa500;
+    box-shadow: none;
+  }
+}
+
+.img-card img,
+.img-card svg {
+  width: 7rem;
+}
+
+.img-card {
+  background-color: transparent;
+  border: #ebe1e1 solid 3px;
+  border-radius: 50%;
+  width: 11rem;
+  height: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text-card h3, .text-card1 h3 {
+  font-family: "Garet";
+  text-align: center;
+  color: #ffa500;
+}
+
+.text-card a, .text-card1 a, .text-card p {
+  font-size: 1rem;
+  font-family: "Titillium Web", sans-serif;
+  text-align: center;
+  color: #ebe1e1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-card1{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-4 {
+  margin-left: 50%;
+}
+
+.card-5 {
+  margin-left: 50%;
+}
+
+.container-p,
+.container-pc {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.card-p,
+.card-pc {
+  background-color: transparent;
+  border: #ffa500 solid 3px;
+  animation: glowingEffect 4s infinite;
+  border-radius: 24px;
+  width: 22rem;
+  height: 12rem;
+  color: #ff8c00;
+  font-size: 1.5rem;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: "Garet";
+cursor: pointer;
+}
+
+
+/* =================================================== */
+/* SECCIÓN DE CONTACTO                                 */
+/* =================================================== */
+.contactanos-container {
+  padding: 2rem;
+  text-align: center;
+  color: #ebe1e1;
+}
+
+.contactanos-container h1 {
+  font-family: "Damione", sans-serif;
+  font-size: 4rem;
+  color: #ffa500;
+  margin-bottom: 2rem;
+}
+
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-card {
+  width: 100%;
+  height: 8rem;
+  border: #ffa500 3px solid;
+  border-radius: 32px;
+  cursor: pointer;
+  color: #ebe1e1;
+  animation: glowingEffect 4s infinite;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+}
+.img-card1{
+  width: 6rem;
+  height: 6rem;
+  border: #ebe1e1 3px solid;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img-card1 svg{
+  width: 4rem;
+}
+
+.contact-card .img-card {
+  background-color: transparent;
+  border: #ebe1e1 solid 3px;
+  border-radius: 50%;
+  width: 11rem;
+  height: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.contact-card .text-card h3 {
+  font-family: "Garet";
+  text-align: center;
+  color: #ffa500;
+  margin-top: 1rem;
+}
+
+.contact-card .text-card p {
+  font-size: 1rem;
+  font-family: "Titillium Web", sans-serif;
+  text-align: center;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  border: 2px solid #ffa500;
+  animation: glowingEffect 4s infinite;
+}
+
+.contact-form h2 {
+  font-family: "Damione", sans-serif;
+  color: #ffa500;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #ffa500;
+  border-radius: 8px;
+  background: transparent;
+  color: #ebe1e1;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.submit-button {
+  background: #ffa500;
+  color: #000;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-family: "Garet";
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #ff8c00;
+}
+
+
+/* =================================================== */
+/* ANIMACIONES ADICIONALES DE ESTRELLAS                */
+/* =================================================== */
+@keyframes animateRight {
+  0% {
+    transform: scale(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateX(-4000%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes animateLeft {
+  0% {
+    transform: scale(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateX(4000%) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes animateUp {
+  0% {
+    transform: scale(0) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(4000%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes animateDown {
+  0% {
+    transform: scale(0) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(-4000%) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+/* =================================================== */
+/* VARIANTES DE ESTRELLAS CON TRAIL                    */
+/* =================================================== */
+.stars-container span.trail {
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* =================================================== */
+/* AJUSTES DE SCROLL Y OVERFLOW                        */
+/* =================================================== */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  scroll-behavior: smooth;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* =================================================== */
+/* AJUSTES FINOS DE ESPACIADO                          */
+/* =================================================== */
+
+/* Presentación */
+.present {
+  transform-origin: center;
+  will-change: transform, opacity;
+  perspective: 1000px;
+}
+
+.present h1 {
+  display: inline-block;
+  transform-style: preserve-3d;
+}
+
+
+
+
+/* Estilos adicionales para la animación del sol */
+.sun {
+  position: relative;
+  z-index: 10;
+}
+
+.sunn, .mercurio, .venus-planet, .tierra, .marte, .jupiter-planet, .sobre-mi, .servicios, .proyectoP, .proyecto, .contac {
+  position: fixed;
+  z-index: 2;
+}
+.servicios{
+  top: 0;
+  left: 65vw;
+}
+.proyectoP{
+  top: 22vh;
+  left: 10vw;
+  z-index: 10000;
+}
+.proyecto{
+  top: 22vh;
+  left: 45vw;
+  z-index:10000;
+}
+.contac{
+  top: 0;
+  left: 10vw;
+  z-index: 10000;
+}
+.mercurio {
+  top: -70vh;
+  left: -60vw;
+  opacity: 0;
+  transform: scale(1);
+  z-index: 3;
+}
+
+.venus-planet{
+  top: -100vh; /* Posicionado arriba fuera de la pantalla */
+  left: 50vw; /* Centrado horizontalmente */
+  transform: scale(0.8);
+  z-index: 4;
+}
+.tierra{
+  top: -100vh; /* Fuera de la pantalla por arriba */
+  left: 0vw;  /* Posicionado a la derecha */
+  z-index: 10;
+}
+.marte{
+  top: 50vh; /* Centrado verticalmente */
+  left: 150vw; /* Fuera de la pantalla por la derecha */
+  z-index: 11;
+  display: block !important; /* Forzar que siempre esté visible */
+}
+.jupiter-planet{
+  top: 50%; /* Centrado verticalmente */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translate(-50%, -50%); /* Centrado perfecto */
+  z-index: 9999; /* Z-index extremadamente alto */
+}
+.present {
+  position: relative;
+  z-index: 1;
+  opacity: 0; /* Inicialmente invisible */
+  will-change: transform, opacity;
+  transition: opacity 0.5s ease;
+  left: 15vw;
+  top: 25vh;
+}
+
+.espacio {
+  height: 550vh;
+}
+
+
+
+/* Additional animation styles to enhance the content sections */
+
+/* Sobre Mi section animations */
+.sobre-mi .sobremi h2 {
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.sobre-mi .sobremi h2:hover {
+  transform: skewX(-5deg);
+  color: #ffa500;
+}
+
+.sobre-mi .sobremi p {
+  position: relative;
+  overflow: hidden;
+}
+
+.sobre-mi .sobremi p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ffa500;
+  transition: width 0.5s ease;
+}
+
+.sobre-mi .sobremi p:hover::after {
+  width: 100%;
+}
+
+/* Servicios section animations */
+.servicios .ser {
+  position: relative;
+}
+
+.servicios .ser::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffa500, transparent);
+  transition: width 0.5s ease;
+}
+
+.servicios:hover .ser::before {
+  width: 80%;
+}
+
+.servicios .card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicios .card:hover {
+  transform: translateY(-10px);
+}
+
+/* Proyectos Personales animations */
+.proyectoP .card-p {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  position: relative;
+}
+
+.proyectoP .card-p::before {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 165, 0, 0.2), transparent);
+  transition: top 0.5s ease;
+  pointer-events: none;
+}
+
+.proyectoP .card-p:hover::before {
+  top: 0;
+}
+
+/* Proyectos animations */
+.proyecto .card-pc {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.proyecto .card-pc::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(to top, rgba(255, 165, 0, 0.2), transparent);
+  transition: height 0.4s ease;
+  pointer-events: none;
+}
+
+.proyecto .card-pc:hover::after {
+  height: 100%;
+}
+
+/* Contacto section animations */
+.contac .contact-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contac .contact-card::before {
+  content: "";
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.1), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.contac .contact-card:hover::before {
+  left: 100%;
+}
+
+.contac .contact-form input,
+.contac .contact-form textarea {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contac .contact-form input:focus,
+.contac .contact-form textarea:focus {
+  border-color: #ff8c00;
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
+  outline: none;
+}
+
+.contac .submit-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.contac .submit-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  z-index: -1;
+}
+
+.contac .submit-button:hover::before {
+  left: 100%;
+}
+
+/* Fix for content sections to ensure they're properly hidden when not in view */
+.sobre-mi,
+.servicios,
+.proyectoP,
+.proyecto,
+.contac {
+  position: fixed;
+  z-index: 1000;
+  visibility: hidden; /* Initially hidden */
+}
+
+/* Only show content when it has opacity */
+.sobre-mi[style*="opacity: 1"],
+.servicios[style*="opacity: 1"],
+.proyectoP[style*="opacity: 1"],
+.proyecto[style*="opacity: 1"],
+.contac[style*="opacity: 1"] {
+  visibility: visible;
+}
+
+/* Ensure content is hidden when opacity is 0 */
+.sobre-mi[style*="opacity: 0"],
+.servicios[style*="opacity: 0"],
+.proyectoP[style*="opacity: 0"],
+.proyecto[style*="opacity: 0"],
+.contac[style*="opacity: 0"] {
+  visibility: hidden;
+  pointer-events: none !important;
+}
+
+
+/* Fix for content sections to ensure they're properly hidden when not in view */
+.sobre-mi,
+.servicios,
+.proyectoP,
+.proyecto,
+.contac {
+  visibility: hidden; /* Initially hidden */
+}
+.sunn canvas{
+  margin-left: -50rem !important;
+}
+.servicios > div{
+  margin-left: -0rem;
+  margin-top: -4rem;
+}
+.proyecto{
+  margin-left: -8rem;
+}
+.contt{
+  gap: 2rem;
+  display: flex;
+}
+.contactanos-container{
+  margin-top: 6rem;
+  margin-left: -8rem;
+  z-index: 19999999990000;
+}
+.contact-cards{
+  width: 30rem;
+}
+.contact-form{
+  width: 30rem;
+}
+.contac{
+  z-index: 1000000000;
+}
+.mercurio > div{
+  margin-left: -10rem;
+}
+.venus-planet > div{
+  margin-left: 10rem;
+}
+.tierra > div{
+  margin-left: -10rem;
+  scale:1.2;
+}
+ @media (max-width: 1700px) {
+  .sunn canvas{
+    margin-left: -25rem !important;
+  }
+  .mercurio > div{
+    margin-left: -10rem;
+  }
+  .sobremi{
+    margin-left: -5rem;
+    margin-top: 5rem;
+  }
+  .venus-planet > div{
+    margin-left: 10rem;
+  }
+  .tierra > div{
+    margin-left: 4rem;
+    scale:1.2;
+  }
+  .marte canvas{
+    margin-left: -40rem;
+  }
+  .container-pc{
+    margin-left: -10rem;
+  }
+ }
+
+ @media (max-width: 1600px){
+  .cards{
+    margin-left: -4rem !important;
+  }
+ } 
+ @media (max-width: 1500px){
+  .container-pc{
+    margin-left: -15rem !important;
+  }
+ } 
+ @media (max-width: 1450px){
+  .sunn canvas{
+  margin-left: -13rem !important;
+  }
+  .servicios{
+    margin-left: -25rem !important;
+  }
+ } 
+ @media (max-width: 1350px){
+  .sunn canvas{
+  margin-left: -9rem !important;
+  }
+  .servicios{
+    margin-left: -25rem !important;
+  }
+  .sobremi{
+    margin-left: -0rem;
+    margin-top: 5rem;
+  }
+ } 
+ @media (max-width: 1250px){
+  .sunn canvas{
+  margin-left: -4rem !important;
+  }
+  .servicios{
+    margin-left: -30rem !important;
+  }
+  .container-p{
+    margin-left: -5.5rem !important;
+  }
+  .sobremi{
+    margin-left: -0rem;
+    margin-top: 5rem;
+  }
+  .container-pc{
+    margin-left: -23rem !important;
+  }
+ } 
+ @media (max-width: 1150px){
+  .sunn canvas{
+  margin-left: 1rem !important;
+  }
+  .present{
+    margin-left: -2rem !important;
+  }
+  .servicios{
+    margin-left: -30rem !important;
+  }
+  .container-p{
+    margin-left: -5.5rem !important;
+  }
+  .container-p > div{
+    width: 20.3rem;
+  }
+  .sobremi{
+    margin-left: 2rem;
+    margin-top: 5rem;
+  }
+  .container-pc{
+    margin-left: -21.2rem !important;
+  }
+  .container-pc > div{
+    width: 20.3rem;
+  }
+ } 
+ @media (max-width: 1050px){
+  .sunn canvas{
+  margin-left: 15rem !important;
+  margin-top: 50rem;
+  }
+  .present{
+    margin-left: -10rem !important;
+    margin-top: -10rem;
+  }
+  .servicios{
+    margin-left: -33rem !important;
+  }
+  .container-p{
+    margin-left: 4rem !important;
+    margin-top: -10rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .container-p > div{
+    width: 20rem;
+  }
+  .sobremi{
+    margin-left: 4rem;
+    margin-top: -2rem;
+  }
+  .mercurio canvas{
+    margin-top: 15rem;
+    margin-left: 10rem !important;
+  }
+  .venus-planet canvas{
+    margin-left: -40rem;
+  }
+  .container-pc{
+    margin-left: -10rem !important;
+    margin-top: -3rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .container-pc > div{
+    width: 20rem;
+  }
+  .marte canvas{
+    margin-left: -20rem;
+  }
+ } 
+ @media (max-width: 950px){
+  .sunn canvas{
+  margin-left: 20rem !important;
+  margin-top: 50rem;
+  width: 10% !important;
+  }
+  .present{
+    margin-left: -10rem !important;
+    margin-top: -10rem;
+  }
+  .servicios{
+    margin-left: -33rem !important;
+  }
+  .container-p{
+    margin-left: 4rem !important;
+    margin-top: -10rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .container-p > div{
+    width: 20rem;
+  }
+  .sobremi{
+    margin-left: 4rem;
+    margin-top: -2rem;
+  }
+  .mercurio canvas{
+    margin-top: 15rem;
+    margin-left: 10rem !important;
+  }
+  .venus-planet canvas{
+    margin-left: -40rem;
+  }
+  .container-pc{
+    margin-left: -10rem !important;
+    margin-top: -3rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .container-pc > div{
+    width: 20rem;
+  }
+  .marte canvas{
+    margin-left: -20rem;
+  }
+ } 

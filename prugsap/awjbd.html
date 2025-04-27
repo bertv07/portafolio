@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar System Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        .sun {
+            position: fixed;
+            width: 50vw;
+            height: 100vh;
+            background: radial-gradient(circle at 70% 30%, #FF6B00, #FFD700);
+            border-radius: 50%;
+            transform: scale(0.3);
+            top: -100vh;
+            left: 65vw;
+            filter: brightness(0.8);
+            z-index: 2;
+        }
+
+        .mercurio {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle at 40% 40%, #00FFFF, #007A7A);
+            border-radius: 50%;
+            top: -70vh;
+            left: -60vw;
+            opacity: 0;
+            transform: scale(1);
+            z-index: 3;
+            box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.3);
+        }
+
+        .venus {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle at 40% 40%, #FFA500, #8B4513);
+            border-radius: 50%;
+            top: -100vh; /* Posicionado arriba fuera de la pantalla */
+            left: 50vw; /* Centrado horizontalmente */
+            opacity: 0;
+            transform: scale(0.8);
+            z-index: 4;
+            box-shadow: 0 0 20px 10px rgba(255, 165, 0, 0.5);
+        }
+
+        .tierra {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle at 40% 40%, #00BFFF, #32CD32);
+            border-radius: 50%;
+            top: -100vh; /* Fuera de la pantalla por arriba */
+            left: 0vw;  /* Posicionado a la derecha */
+            opacity: 0;
+            z-index: 10;
+            box-shadow: 0 0 30px 15px rgba(0, 191, 255, 0.6);
+        }
+
+        .marte {
+            position: fixed;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle at 40% 40%, #FF4500, #8B0000);
+            border-radius: 50%;
+            top: 50vh; /* Centrado verticalmente */
+            left: 150vw; /* Fuera de la pantalla por la derecha */
+            opacity: 0;
+            z-index: 11;
+            box-shadow: 0 0 30px 15px rgba(255, 69, 0, 0.6);
+            display: block !important; /* Forzar que siempre esté visible */
+        }
+
+        .jupiter {
+            position: fixed;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle at 40% 40%, #F0E68C, #CD853F);
+            border-radius: 50%;
+            top: 50%; /* Centrado verticalmente */
+            left: 50%; /* Centrado horizontalmente */
+            transform: translate(-50%, -50%); /* Centrado perfecto */
+            opacity: 0;
+            z-index: 9999; /* Z-index extremadamente alto */
+            box-shadow: 0 0 35px 18px rgba(240, 230, 140, 0.6);
+            display: none; /* Inicialmente oculto */
+        }
+
+        .test {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.9);
+            width: 300px;
+            opacity: 1;
+            left: 70%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Arial;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 3;
+        }
+
+        .espacio {
+            height: 550vh;
+        }
+        
+        /* Estilo para el panel de depuración */
+        .debug-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 10000;
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            font-family: Arial;
+            font-size: 14px;
+            border-radius: 5px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <img src="" alt="" width="">
+    <div class="sun">
+        <h1 style="color: white; text-align: center; margin-top: 45vh;">Sol</h1>
+    </div>
+    <div class="mercurio">
+        <h1 style="text-align: center; color: white; font-size: 1.5vw; margin-top: 40%;">Mercurio</h1>
+    </div>
+    <div class="venus">
+        <h1 style="text-align: center; color: white; font-size: 2vw; margin-top: 40%;">Venus</h1>
+    </div>
+    <div class="tierra">
+        <h1 style="text-align: center; color: white; font-size: 3vw; margin-top: 40%; text-shadow: 0 0 10px #000;">Tierra</h1>
+    </div>
+    <div class="marte">
+        <h1 style="text-align: center; color: white; font-size: 2.5vw; margin-top: 40%; text-shadow: 0 0 10px #000;">Marte</h1>
+    </div>
+    <div class="jupiter">
+        <h1 style="text-align: center; color: white; font-size: 3.5vw; margin-top: 40%; text-shadow: 0 0 10px #000;">Júpiter</h1>
+    </div>
+    <div class="test">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+    </div>
+    <div class="espacio"></div>
+    
+    <!-- Panel de depuración para Júpiter -->
+    <div class="debug-panel">
+        Depuración de Júpiter: Esperando...
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/MotionPathPlugin.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sun = document.querySelector('.sun');
+            const mercurio = document.querySelector('.mercurio');
+            const venus = document.querySelector('.venus');
+            const tierra = document.querySelector('.tierra');
+            const marte = document.querySelector('.marte');
+            const jupiter = document.querySelector('.jupiter');
+            const test = document.querySelector('.test');
+            const debugPanel = document.querySelector('.debug-panel');
+            
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+    
+            // Función para animar el 'test'
+            function animateTest() {
+                gsap.to(test, {
+                    opacity: 0,
+                    y: -50,
+                    duration: 2,
+                    ease: "power1.out"
+                });
+            }
+    
+            // Función para animar el 'sun', 'mercurio' y 'venus' con ScrollTrigger
+            function animateScroll() {
+                // Asegurarse de que Mercurio esté en su posición inicial
+                gsap.set(mercurio, {
+                    x: 0,
+                    y: 0,
+                    opacity: 0,
+                    scale: 0.5
+                });
+                
+                // Asegurarse de que Venus esté en su posición inicial
+                gsap.set(venus, {
+                    x: 0,
+                    y: 0,
+                    opacity: 0,
+                    scale: 0.6,
+                    top: "-100vh", // Fuera de la pantalla por arriba
+                    left: "50vw",  // Centrado horizontalmente
+                    xPercent: -50  // Ajuste para centrar correctamente
+                });
+                
+                // Asegurarse de que Marte esté en su posición inicial
+                gsap.set(marte, {
+                    opacity: 0,
+                    left: "150vw", // Fuera de la pantalla por la derecha
+                    top: "50vh",   // Centrado verticalmente
+                    yPercent: -50, // Centrar verticalmente
+                    scale: 0.7
+                });
+                
+                // IMPORTANTE: Posición inicial de Júpiter - VISIBLE EN PANTALLA
+                gsap.set(jupiter, {
+                    opacity: 0,
+                    xPercent: -50, // Centrar horizontalmente
+                    yPercent: 130, // Centrar verticalmente
+                    display: "block", // Inicialmente visible
+                    visibility: "visible"
+                });
+                
+                const scrollTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: ".espacio",
+                        start: "top top",
+                        end: "+=300%",
+                        scrub: 2,
+                        markers: true
+                    }
+                });
+    
+                // Movimiento del Sol
+                scrollTl.to(sun, {
+                    duration: 10,
+                    motionPath: {
+                        path: [
+                            {x: "10vw", y: "0vh"},
+                            {x: "15vw", y: "0vh"},
+                            {x: "20vw", y: "0vh"},
+                            {x: "30vw", y: "10vh"}, // Aquí aparece Mercurio
+                            {x: "60vw", y: "100vh"},
+                            {x: "80vw", y: "125vh"}
+                        ],
+                        curviness: 1.2,
+                        autoRotate: false,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 0.2,
+                    ease: "none",
+                    onUpdate: function() {
+                        const progress = scrollTl.progress();
+                        const brightness = 1.8 - progress * 0.8;
+                        gsap.set(sun, {
+                            filter: `brightness(${brightness}) drop-shadow(0 0 ${30 - progress * 20}px orange)`
+                        });
+                    }
+                });
+                
+                // Primero, hacer que Mercurio aparezca
+                scrollTl.to(mercurio, {
+                    duration: 1,
+                    opacity: 1,
+                    scale: 1,
+                    ease: "power2.inOut"
+                }, 1); // Comienza después de 1 unidad de tiempo
+    
+                // Luego, mover Mercurio siguiendo el camino dibujado
+                scrollTl.to(mercurio, {
+                    duration: 12, // Reducido para que salga antes
+                    motionPath: {
+                        path: [
+                            {x: "10vw", y: "0vh"},
+                            {x: "40vw", y: "10vh"},
+                            {x: "50vw", y: "15vh"},
+                            {x: "65vw", y: "20vh"},
+                            {x: "70vw", y: "25vh"},
+                            {x: "80vw", y: "30vh"},
+                            {x: "90vw", y: "40vh"},
+                            {x: "100vw", y: "50vh"},
+                            {x: "120vw", y: "60vh"},
+                            {x: "130vw", y: "70vh"},
+                        ],
+                        curviness: 1.5,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    ease: "none",
+                    onUpdate: function() {
+                        // Efecto de estela para Mercurio
+                        const progress = this.progress();
+                        if (progress > 0.1) { // Comenzar efecto después de que sea visible
+                            gsap.set(mercurio, {
+                                boxShadow: `0 0 ${15 + progress * 20}px ${5 + progress * 10}px rgba(0, 255, 255, ${0.3 + progress * 0.5})`
+                            });
+                        }
+                    }
+                }, 2); // Comienza después de la aparición
+                
+                // Animación de salida de Mercurio hacia arriba-izquierda
+                scrollTl.to(mercurio, {
+                    duration: 20,
+                    motionPath: {
+                        path: [
+                            {x: "130vw", y: "70vh"},  // Posición actual
+                            {x: "140vw", y: "50vh"},  // Movimiento hacia arriba-derecha
+                            {x: "150vw", y: "30vh"},  // Continúa hacia arriba-derecha
+                            {x: "160vw", y: "10vh"},  // Fuera de pantalla por arriba-derecha
+                            {x: "170vw", y: "-20vh"}  // Completamente fuera de pantalla
+                        ],
+                        curviness: 1.2,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 0.3,
+                    opacity: 0,
+                    ease: "power2.in",
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de desvanecimiento para la salida
+                        gsap.set(mercurio, {
+                            boxShadow: `0 0 ${(1-progress) * 35}px ${(1-progress) * 15}px rgba(0, 255, 255, ${(1-progress) * 0.8})`
+                        });
+                    }
+                }, 15); // Comienza después del movimiento principal
+                
+                // Entrada de Venus desde arriba
+                scrollTl.to(venus, {
+                    duration: 30,
+                    opacity: 1,
+                    top: "-10vh",
+                    left: "0",
+                    scale: 0.8,
+                    motionPath: {
+                        path: [
+                            {x: "20vw", y: "10vh"},
+                            {x: "15vw", y: "20vh"},
+                            {x: "15vw", y: "30vh"},
+                            {x: "10vw", y: "40vh"},
+                            {x: "5vw", y: "0vh"}
+                        ]
+                    },
+                    onStart: function() {
+                        // Asegurarse de que Venus sea visible
+                        venus.style.display = "block";
+                        venus.style.opacity = "0";
+                    },
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de brillo creciente para Venus
+                        gsap.set(venus, {
+                            boxShadow: `0 0 ${5 + progress * 25}px ${2 + progress * 12}px rgba(255, 165, 0, ${0.1 + progress * 0.6})`
+                        });
+                    }
+                }, 38);
+                
+                // Animación de salida de Venus
+                scrollTl.to(venus, {
+                    duration: 25,
+                    motionPath: {
+                        path: [
+                            {x: "10vw", y: "50vh"},  // Punto intermedio
+                            {x: "30vw", y: "70vh"},  // Desplazamiento hacia abajo-derecha
+                            {x: "60vw", y: "120vh"}  // Fuera de pantalla por abajo-derecha
+                        ],
+                        curviness: 1.2,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 0.4,
+                    opacity: 0,
+                    ease: "power2.in",
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de desvanecimiento para la salida
+                        gsap.set(venus, {
+                            boxShadow: `0 0 ${25 - progress * 20}px ${12 - progress * 10}px rgba(255, 165, 0, ${0.6 - progress * 0.6})`
+                        });
+                    }
+                }, 60); // Comienza después de la entrada completa de Venus
+                
+                // Entrada de la Tierra
+                scrollTl.to(tierra, {
+                    duration: 30,
+                    opacity: 1,
+                    motionPath: {
+                        path: [
+                            {x: "0vw", y: "20vh"},   // Punto inicial
+                            {x: "10vw", y: "50vh"},  // Movimiento hacia abajo
+                            {x: "30vw", y: "70vh"},  // Movimiento hacia la derecha
+                            {x: "50vw", y: "80vh"},  // Continúa hacia la derecha
+                            {x: "70vw", y: "98vh"},  // Posición final abajo-derecha
+                        ],
+                        curviness: 1.2,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 1,
+                    ease: "power2.out",
+                    onStart: function() {
+                        console.log("Iniciando animación de la Tierra");
+                    },
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de brillo creciente para Tierra
+                        gsap.set(tierra, {
+                            boxShadow: `0 0 ${progress * 30}px ${progress * 15}px rgba(0, 191, 255, ${progress * 0.7})`
+                        });
+                    }
+                }, 80); // Comienza cuando Venus está saliendo
+                
+                // Animación de salida de la Tierra
+                scrollTl.to(tierra, {
+                    duration: 25,
+                    motionPath: {
+                        path: [
+                            {x: "40vw", y: "100vh"},  // Continúa hacia abajo-derecha
+                            {x: "50vw", y: "0vh"},  // Sale por abajo-derecha
+                            {x: "60vw", y: "0vh"}  // Fuera de pantalla
+                        ],
+                        // curviness: 1.2,
+                        // alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 0.5,
+                    opacity: 0,
+                    ease: "power2.in",
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de desvanecimiento para la salida
+                        gsap.set(tierra, {
+                            boxShadow: `0 0 ${30 - progress * 25}px ${15 - progress * 10}px rgba(0, 191, 255, ${0.7 - progress * 0.7})`
+                        });
+                    }
+                }, 110); // Comienza después de que la Tierra haya completado su entrada
+                
+                // Entrada simplificada de Marte
+                scrollTl.to(marte, {
+                    duration: 25,
+                    opacity: 1,
+                    left: "30vw", // Posición final en el lado derecho
+                    ease: "none",
+                    scale: 1.1,
+                    onStart: function() {
+                        console.log("¡Iniciando animación de Marte!");
+                        // Asegurarse de que Marte sea visible
+                        marte.style.display = "block";
+                        marte.style.visibility = "visible";
+                    },
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        console.log("Progreso de animación Marte:", progress);
+                        // Efecto de brillo creciente para Marte
+                        gsap.set(marte, {
+                            // Forzar visibilidad durante la animación
+                            display: "block",
+                            visibility: "visible"
+                        });
+                    },
+                    onComplete: function() {
+                        console.log("¡Animación de Marte completada!");
+                    }
+                }, 130); // Comenzar cuando la Tierra está en pantalla
+                
+                // Animación de salida de Marte
+                scrollTl.to(marte, {
+                    duration: 20,
+                    motionPath: {
+                        path: [
+                            {x: "30vw", y: "0vh"},  // Posición actual
+                            {x: "-30vw", y: "20vh"}, // Movimiento hacia abajo-izquierda
+                            {x: "-50vw", y: "40vh"}, // Continúa hacia abajo-izquierda
+                            {x: "-70vw", y: "60vh"}, // Fuera de pantalla por abajo-izquierda
+                        ],
+                        curviness: 1.2,
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale: 1.1,
+                    opacity: 0,
+                    ease: "power2.in",
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        // Efecto de desvanecimiento para la salida
+                        gsap.set(marte, {
+                            // Mantener visible durante la animación de salida
+                            display: "block",
+                            visibility: "visible"
+                        });
+                    }
+                }, 155); // Comienza después de que Marte haya estado en pantalla
+                
+                // ANIMACIÓN DE JÚPITER CON MOTION PATH VISIBLE
+                // Primer paso: Hacer visible a Júpiter
+                scrollTl.to(jupiter, {
+                    duration: 0.1, // Duración muy corta para que aparezca rápido
+                    opacity: 1,
+                    display: "block",
+                    visibility: "visible",
+                    scale: 1.2,
+                }, 140);
+                
+                // Segundo paso: Mover Júpiter con motion path VISIBLE
+                scrollTl.to(jupiter, {
+                    duration: 25,
+                    motionPath: {
+                        path: [
+                            {x: "0vw", y: "-185vh"},     // Posición inicial (80% left, 50% top)
+                            {x: "0vw", y: "-185vh"}, // Mover hacia arriba-izquierda
+                            {x: "00vw", y: "-185vh"},   // Mover hacia la izquierda
+                            {x: "40vw", y: "-185vh"},  // Mover hacia abajo-izquierda
+                            {x: "50vw", y: "-185vh"},  // Mover hacia abajo-izquierda
+                        ],
+                        curviness: 0.3, // Curvatura muy suave
+                        alignOrigin: [0.5, 0.5]
+                    },
+                    scale:1,
+                    ease: "power1.inOut",
+                    onUpdate: function() {
+                        const progress = this.progress();
+                        console.log("Progreso de animación Júpiter:", progress);
+                        
+                        // Efecto de brillo creciente para Júpiter
+                        gsap.set(jupiter, {
+                            boxShadow: `0 0 ${progress * 50}px ${progress * 25}px rgba(240, 230, 140, ${progress * 0.9})`,
+                            // Forzar visibilidad durante la animación
+                            display: "block",
+                            visibility: "visible",
+                            opacity: 1,
+                            zIndex: 9999
+                        });
+                    },
+                }, 171);
+            }
+    
+            // Animación inicial
+            const initialTl = gsap.timeline();
+            initialTl
+                .to(sun, {
+                    duration: 2,
+                    scale: 0.5,
+                    top: '-500px',
+                    ease: "power1.inOut"
+                })
+                .to(sun, {
+                    duration: 3,
+                    top: '50%',
+                    right: '80%',
+                    xPercent: 80,
+                    yPercent: -50,
+                    scale: 0.8,
+                    ease: "power2.inOut",
+                }, "-=1")
+                .to(sun, {
+                    duration: 2.5,
+                    right: '0',
+                    left: '-1000px',
+                    ease: "power1.inOut",
+                    scale: 1,
+                    onStart: () => {
+                        gsap.to(test, {
+                            duration: 1.5,
+                            opacity: 1,
+                            y: -50,
+                            ease: "power2.out"
+                        }, "+=2")
+                    }
+                }, "-=2")
+                .call(() => {
+                    document.body.style.overflowY = "auto";
+                })
+                .add(() => {                    
+                    animateScroll(); // Llamar a la animación con scroll
+                    animateTest(); // Llamar a la animación del test
+                });
+        });
+    </script>
+    
+</body>
+</html>
